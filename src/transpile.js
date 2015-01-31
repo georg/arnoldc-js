@@ -1,67 +1,69 @@
 const operationRules = {
   "GET UP (.+)": function(op1, op2) {
-    return parseOperand(op1) + ' + ' + parseOperand(op2);
+    return `${parseOperand(op1)} + ${parseOperand(op2)}`;
   },
   "GET DOWN (.+)": function(op1, op2) {
-    return parseOperand(op1) + ' - ' + parseOperand(op2);
+    return `${parseOperand(op1)} - ${parseOperand(op2)}`;
   },
   "YOU'RE FIRED (.+)": function(op1, op2) {
-    return parseOperand(op1) + ' * ' + parseOperand(op2);
+    return `${parseOperand(op1)} * ${parseOperand(op2)}`;
   },
   "HE HAD TO SPLIT (.+)": function(op1, op2) {
-    return parseOperand(op1) + ' / ' + parseOperand(op2);
+    return `${parseOperand(op1)} / ${parseOperand(op2)}`;
   },
   "YOU ARE NOT YOU YOU ARE ME (.+)": function(op1, op2) {
-    return parseOperand(op1) + ' == ' + parseOperand(op2) + ' ? 1 : 0';
+    return `${parseOperand(op1)} == ${parseOperand(op2)} ? 1 : 0`;
   },
   "LET OFF SOME STEAM BENNET (.+)": function(op1, op2) {
-    return parseOperand(op1) + ' > ' + parseOperand(op2) + ' ? 1 : 0';
+    return `${parseOperand(op1)} > ${parseOperand(op2)} ? 1 : 0`;
   },
   "CONSIDER THAT A DIVORCE (.+)": function(op1, op2) {
-    return parseOperand(op1) + ' || ' + parseOperand(op2) + ' ? 1 : 0';
+    return `${parseOperand(op1)} || ${parseOperand(op2)} ? 1 : 0`;
   },
   "KNOCK KNOCK (.+)": function(op1, op2) {
-    return parseOperand(op1) + ' && ' + parseOperand(op2) + ' ? 1 : 0';
+    return `${parseOperand(op1)} && ${parseOperand(op2)} ? 1 : 0`;
   }
 };
 const statementRules = {
   'TALK TO THE HAND "(.+)"': function(string) {
-    return 'print("' + string + '");\n';
+    return `print("${string}");\n`;
   },
   "TALK TO THE HAND (.+)": function(variable) {
-    return 'print(' + variable + ');\n';
+    return `print(${variable});\n`;
   },
   "HEY CHRISTMAS TREE (.+)\n\s*YOU SET US UP (.+)": function(variableName, initialValue) {
-    return 'var ' + variableName + ' = ' + parseOperand(initialValue) + ';\n';
+    return `var ${variableName}  = ${parseOperand(initialValue)} ;\n`;
   },
   "GET TO THE CHOPPER (.+)\n\s*HERE IS MY INVITATION (.+)((.|\n)+)ENOUGH TALK": function(variableName, firstOperand, operationsText) {
     const operations = parse(operationsText, [], operationRules);
-    return variableName + ' = ' + _.reduce(operations, function(acc, curr) {
+    const evaledOperations = _.reduce(operations, function(acc, curr) {
       curr.arguments.unshift(acc);
       return curr.statement.apply(undefined, curr.arguments);
     }, parseOperand(firstOperand)) + ';\n';
+    return `${variableName} = ${evaledOperations};\n`;
   },
   "BECAUSE I'M GOING TO SAY PLEASE (.+)\n((.|\n)+)\nYOU HAVE NO RESPECT FOR LOGIC": function(variableName, statementsText) {
     const ifStatements = parse(statementsText.split('BULLSHIT')[0], [], statementRules);
     const elseStatements = parse(statementsText.split('BULLSHIT')[1], [], statementRules);
-    return 'if (' + variableName + ') {\n'
-      + transpile(ifStatements)
-      + '} else {\n'
-      + transpile(elseStatements) + '}\n';
+    return `if (${variableName}) {
+      ${transpile(ifStatements)}
+      } else {
+      ${transpile(elseStatements)}
+      }`;
   },
   "STICK AROUND (.+)\n((.|\n)+)\nCHILL": function(variableName, statementsText) {
     const statements = parse(statementsText, [], statementRules);
-    return 'while (' + variableName + ') {\n'
-      + transpile(statements)
-      + '}\n';
+    return `while (${variableName}) {
+      ${transpile(statements)}
+      }`;
   }
 };
 const rootRules = {
   "IT'S SHOWTIME\n((.|\n)+)\nYOU HAVE BEEN TERMINATED":  function(statementsText) {
     const statements = parse(statementsText, [], statementRules);
-    return '(function() {\n' +
-      transpile(statements) +
-      '})();';
+    return `(function() {
+      ${transpile(statements)}
+      })();`;
   }
 };
 
