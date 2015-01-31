@@ -36,7 +36,7 @@ const statementRules = {
   },
   "GET TO THE CHOPPER (.+)\n\s*HERE IS MY INVITATION (.+)((.|\n)+)ENOUGH TALK": function(variableName, firstOperand, operationsText) {
     const operations = parse(operationsText, [], operationRules);
-    const evaledOperations = _.reduce(operations, function(acc, curr) {
+    const evaledOperations = _.reduce(operations, (acc, curr) => {
       curr.arguments.unshift(acc);
       return curr.statement.apply(undefined, curr.arguments);
     }, parseOperand(firstOperand)) + ';\n';
@@ -81,7 +81,7 @@ function parseOperand(variable) {
 function nextStatement(program, rules) {
   let foundStatement;
   _.keys(rules).
-    forEach(function(statement) {
+    forEach(statement => {
       const re = new RegExp(statement, 'm');
       const result = re.exec(program);
       if (result && (!foundStatement || foundStatement.index > result.index)) {
@@ -105,7 +105,7 @@ function parse(program, statements, rules) {
 }
 
 function transpile(statements) {
-  return _(statements).reduce(function(generatedSource, curr) {
+  return _(statements).reduce((generatedSource, curr) => {
       return generatedSource + curr.statement.apply(undefined, curr.arguments);
     }, '');
 }
