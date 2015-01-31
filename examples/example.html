@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>ArnoldC</title>
+</head>
+<body>
+  <textarea id="src" cols="80" rows="20">
+IT'S SHOWTIME
+HEY CHRISTMAS TREE a
+YOU SET US UP 1
+
+HEY CHRISTMAS TREE b
+YOU SET US UP 1
+
+GET TO THE CHOPPER a
+HERE IS MY INVITATION 4
+GET UP 2
+YOU'RE FIRED b
+ENOUGH TALK
+
+TALK TO THE HAND "hello world"
+
+YOU HAVE BEEN TERMINATED
+  </textarea>
+  <br>
+  <button onclick="evalTextArea()">Run</button>
+  <br>
+  Output:
+  <br>
+  <pre id="output">
+  </pre>
+  JavaScript:
+  <br>
+  <pre id="js">
+  </pre>
+  <script src="../node_modules/lodash/index.js"></script>
+  <script src="../dist/arnoldc.js"></script>
+  <script>
+    function evalTextArea() {
+      var src = document.getElementById('src').value;
+      var output = arnoldC.exec(src);
+      document.getElementById('output').innerText = output;
+      document.getElementById('js').innerText = arnoldC.js(src);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "arnoldc-js",
+  "description": "JS version of http://lhartikk.github.io/ArnoldC/",
+  "version": "0.1.0",
+  "author": {
+    "name": "Georg Friedrich",
+    "url": "https://github.com/georg"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/georg/arnoldc-js.git"
+  },
+  "keywords": [
+    "arnoldc",
+    "javascript",
+    "library"
+  ],
+  "dependencies": {
+    "lodash": "3.0.1"
+  },
+  "devDependencies": {
+    "browserify": "^8.1.1",
+    "del": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-6to5": "^3.0.0",
+    "gulp-load-plugins": "^0.8.0",
+    "gulp-qunit": "^1.2.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.1.0",
+    "node-qunit-phantomjs": "^1.2.0",
+    "qunit": "^0.7.5",
+    "qunitjs": "^1.17.1",
+    "reload": "^0.1.0",
+    "vinyl-transform": "^1.0.0"
+  }
+}
