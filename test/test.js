@@ -1,3 +1,17 @@
+QUnit.test("invalid statements raise parse error", function(assert) {
+  assert.throws(
+    function() {
+      arnoldC.exec("invalid\nIT'S SHOWTIME\n\nYOU HAVE BEEN TERMINATED");
+    },
+    "raises parse error"
+  );
+});
+
+QUnit.test("ignores whitespace", function(assert) {
+  var context = arnoldC.exec("      IT'S SHOWTIME\nTALK TO THE HAND \"hello world\"\nYOU HAVE BEEN TERMINATED");
+  assert.equal(context, "hello world\n");
+});
+
 QUnit.test("print string", function(assert) {
   var context = arnoldC.exec("IT'S SHOWTIME\nTALK TO THE HAND \"hello world\"\nYOU HAVE BEEN TERMINATED");
   assert.equal(context, "hello world\n");
@@ -97,7 +111,7 @@ QUnit.test("and", function(assert) {
 });
 
 QUnit.test("branch statement", function(assert) {
-  var context = arnoldC.exec("IT'S SHOWTIME\nHEY CHRISTMAS TREE a\nYOU SET US UP 0\nBECAUSE I'M GOING TO SAY PLEASE a\nTALK TO THE HAND \"a\"\nYOU HAVE NO RESPECT FOR LOGIC\YOU HAVE BEEN TERMINATED");
+  var context = arnoldC.exec("IT'S SHOWTIME\nHEY CHRISTMAS TREE a\nYOU SET US UP 0\nBECAUSE I'M GOING TO SAY PLEASE a\nTALK TO THE HAND \"a\"\nYOU HAVE NO RESPECT FOR LOGIC\nYOU HAVE BEEN TERMINATED");
   assert.equal(context, "");
 
   var context = arnoldC.exec("IT'S SHOWTIME\nHEY CHRISTMAS TREE a\nYOU SET US UP 1\nBECAUSE I'M GOING TO SAY PLEASE a\nTALK TO THE HAND \"a\"\nYOU HAVE NO RESPECT FOR LOGIC\nYOU HAVE BEEN TERMINATED");
@@ -113,6 +127,6 @@ QUnit.test("branch statement with else branch", function(assert) {
 });
 
 QUnit.test("while loop", function(assert) {
-  var context = arnoldC.exec("IT'S SHOWTIME\nHEY CHRISTMAS TREE a\nYOU SET US UP 2\nSTICK AROUND a\nTALK TO THE HAND \"a\"GET TO THE CHOPPER a\nHERE IS MY INVITATION a\nGET DOWN 1\nENOUGH TALK\nCHILL\nYOU HAVE BEEN TERMINATED");
+  var context = arnoldC.exec("IT'S SHOWTIME\nHEY CHRISTMAS TREE a\nYOU SET US UP 2\nSTICK AROUND a\nTALK TO THE HAND \"a\"\nGET TO THE CHOPPER a\nHERE IS MY INVITATION a\nGET DOWN 1\nENOUGH TALK\nCHILL\nYOU HAVE BEEN TERMINATED");
   assert.equal(context, "a\na\n");
 });

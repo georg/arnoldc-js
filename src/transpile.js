@@ -79,30 +79,32 @@ function parseOperand(variable) {
 }
 
 function nextStatement(program, rules) {
-  let foundStatement;
-  _.keys(rules).
-    forEach(statement => {
+  return _(_.keys(rules)).
+    map(statement => {
       const re = new RegExp(statement, 'm');
       const result = re.exec(program);
-      if (result && (!foundStatement || foundStatement.index > result.index)) {
-        foundStatement = {
+      if (result && result.index === 0) {
+        return {
           statement: rules[statement],
           match: _.first(program.match(re)),
           index: result.index,
           arguments: _.rest(program.match(re))
         };
       }
-    });
-  return foundStatement;
+    }).find();
 }
 
 function parse(program, statements, rules) {
-  const statement = nextStatement(program, rules);
+  const trimmedProgram = _.trim(program);
+  const statement = nextStatement(trimmedProgram, rules);
   if (statement) {
-    const rest = program.substring(statement.index + statement.match.length);
+    const rest = trimmedProgram.substring(statement.index + statement.match.length);
     statements.push(statement);
     return parse(rest, statements, rules);
   } else {
+    if (trimmedProgram.length !== 0) {
+      throw `invalid token: ${trimmedProgram}`;
+    }
     return statements;
   }
 }
