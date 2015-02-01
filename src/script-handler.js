@@ -4,7 +4,7 @@ function evalScripts() {
   document.removeEventListener('DOMContentLoaded', evalScripts);
 
   _.filter(document.getElementsByTagName('script'), function(script) {
-    return script.type === 'application/arnoldc';
+    return script.type === 'text/arnoldc';
   }).forEach(function(script) {
     script.insertAdjacentHTML('afterend', '<pre>' + arnoldC.exec(script.text) + '</pre>');
   });

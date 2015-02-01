@@ -25,7 +25,7 @@ console.log(arnoldC.exec("IT'S SHOWTIME\nTALK TO THE HAND \"hello world\"\nYOU H
 ### Automatically execute all arnoldC scripts
 
 ```html
-<script type="application/arnoldc">
+<script type="text/arnoldc">
 IT'S SHOWTIME
 TALK TO THE HAND "hello world"
 YOU HAVE BEEN TERMINATED
