@@ -15,10 +15,10 @@ gulp.task('script', function() {
     return b.bundle();
   });
 
-  return gulp.src('src/script-handler.js')
+  return gulp.src('src/browser.js')
     .pipe(browserified)
     .pipe(to5())
-    .pipe(rename('arnoldc.script.js'))
+    .pipe(rename('arnoldc.browser.js'))
     .pipe(gulp.dest('dist'));
 });
 
@@ -48,9 +48,9 @@ gulp.task('compress', ['build'], function() {
     .pipe(rename('arnoldc.min.js'))
     .pipe(gulp.dest('dist'));
 
-  gulp.src('dist/arnoldc.script.js')
+  gulp.src('dist/arnoldc.browser.js')
     .pipe($.uglify())
-    .pipe(rename('arnoldc.script.min.js'))
+    .pipe(rename('arnoldc.browser.min.js'))
     .pipe(gulp.dest('dist'));
 });
 

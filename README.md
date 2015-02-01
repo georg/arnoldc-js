@@ -34,7 +34,7 @@ YOU HAVE BEEN TERMINATED
 <!-- lodash library -->
 <script src="lodash.js"></script>
 <!-- arnoldC -->
-<script src="arnoldc.script.min.js"></script>
+<script src="arnoldc.browser.min.js"></script>
 ```
 
 ## Contributing
