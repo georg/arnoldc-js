@@ -98,10 +98,13 @@ function nextStatement(program, rules) {
 
 function parse(program, statements, rules) {
   const statement = nextStatement(program, rules);
-  if (!statement) { return statements; }
-  const rest = program.substring(statement.index + statement.match.length);
-  statements.push(statement);
-  return parse(rest, statements, rules);
+  if (statement) {
+    const rest = program.substring(statement.index + statement.match.length);
+    statements.push(statement);
+    return parse(rest, statements, rules);
+  } else {
+    return statements;
+  }
 }
 
 function transpile(statements) {
